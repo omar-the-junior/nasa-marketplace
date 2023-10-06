@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { XataClient } from '../xata';
+ 
+const xata = new XataClient({
+  apiKey: import.meta.env.XATA_API_KEY,
+  branch: import.meta.env.XATA_BRANCH
+});
+const search = Astro.url.searchParams.get('query')! || '';
+ 
+let projects = null;
+
+if (search) {
+  projects = await xata.db.projects.search(search, { fuzziness: 2 });
+} else {
+  projects = await xata.db.projects.getAll();
+}
+
+let skills = await xata.db.skills.getAll();
+let categories = await xata.db.categories.getAll();
+let scienceFields = await xata.db.science_fields.getAll();
+
+---
+
+<BaseLayout>
+<section class="px-4 md:px-8 lg:px-16 xl:px-20 bg-white">
+    <div >
+        <div class="my-10 ">
+            <form action="/projects">
+                <input type="text" name="query" value={search} placeholder="Search project by name" class="shadow appearance-none border-black rounded w-full md:w-3/4 lg:w-1/2 xl:w-1/3 py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white max-w-[890px] mb-10 md:mb-0 md:mr-4" />
+                <input type="submit" value="Search" class="bg-[#2491EB] hover:bg-[#2491ebd4] text-white font-bold py-3 px-10 rounded text-lg w-full md:w-auto" />
+            </form>
+        </div>
+        <div class="max-w-[890px] flex flex-col md:flex-row justify-between items-center mb-16">
+            <div class="flex flex-wrap md:flex-nowrap items-center justify-between w-full">
+               <select class="select select-info w-70 max-w-xs" >
+                    <option disabled selected>Select skills</option>
+                    {skills.map((skill) => (
+                      <option>{skill.name}</option>
+                    ))}
+                </select>
+               <select class="select select-info w-70 max-w-xs" >
+                    <option disabled selected>Select categories</option>
+                    {
+                        categories.map((category) => (
+                            <option>{category.name}</option>
+                        ))
+                    }
+                </select>
+                <select class="select select-info w-70 max-w-xs">
+                    <option disabled selected>Select science Fields</option>
+                    {
+                        scienceFields.map((scienceField) => (
+                            <option>{scienceField.name}</option>
+                        ))
+                    }
+                </select>
+            </div>
+            <input type="submit" value="Apply filters" class="bg-[#2491EB] hover:bg-[#2491ebd4] text-white font-bold py-2 px-10 rounded text-lg w-full md:w-auto ml-5" />
+        </div>
+    </div>
+
+    {projects.length === 0 && <p>No projects found</p>}
+    {projects.map(async (project) => (
+      <div class="card w-full shadow-xl bg-white text-black my-10">
+        <div class="card-body border-[#2491EB] shadow-none">
+          <h2 class="card-title font-bold text-3xl text-[#2491EB]">
+            {project.name}
+          </h2>
+          <p class="text-xl">{project.description}</p>
+          <div class="text-[#777]">
+            <p>Skills required for the project</p>
+          </div>
+          <div class="card-actions justify-end">
+            <div class="badge badge-outline border-2 border-[#2491EB] p-3 rounded-lg text-[#2491EB]">Category</div> 
+          </div>
+        </div>
+      </div>
+    ))}
+    
+</section>
+</BaseLayout>

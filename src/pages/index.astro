@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout>
+<section
+      class="px-5 md:px-10 lg:px-20 flex flex-col md:flex-row items-center bg-white"
+    >
+      <div
+        class="md:w-1/2 flex flex-col justify-center items-center md:items-start mb-10 md:mb-0"
+      >
+        <img src="imgs/Logo.png" alt="" class="max-w-[309px] ml-[-45px]" />
+        <h2 class="text-black font-bold text-3xl text-center md:text-left">
+          Connecting passion <br />
+          with purpose
+        </h2>
+        <div class="flex gap-6 mt-6">
+          <a href="/createProject"
+            ><button
+              class="btn btn-neutral bg-[#2491EB] text-white border-[#2491EB] hover:bg-white hover:text-black hover:border-black hover:border-2"
+            >
+              Create a project
+            </button></a
+          >
+          <a href=""
+            ><button
+              class="btn btn-neutral bg-white text-black hover:bg-[#2491EB] hover:text-white hover:border-none"
+            >
+              Contribute to projects
+            </button></a
+          >
+        </div>
+      </div>
+      <div class="md:w-1/2">
+        <img
+          src="imgs/brainstorming-session-d (1).svg"
+          alt=""
+          class="max-w-full"
+        />
+      </div>
+    </section>
+</BaseLayout>

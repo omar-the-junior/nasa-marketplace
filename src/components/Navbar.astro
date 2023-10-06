@@ -1,0 +1,31 @@
+<nav
+      class="bg-white shadow md:flex md:items-center md:justify-between px-[80px] max-md:px-[40px]"
+>
+      <div class="flex justify-between items-center">
+        <span class="cursor-pointer">
+          <img class="w-[100px] inline" src="imgs/Logo.png" />
+        </span>
+
+        <span class="text-3xl cursor-pointer mx-2 md:hidden block">
+          <ion-icon name="menu" onclick="Menu(this)"></ion-icon>
+        </span>
+      </div>
+      <ul
+        class="md:flex md:items-center max-md:z-10 max-md:mt-2 max-md:pt-10 z-[-1] md:z-auto md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 text-black"
+      >
+        <li class="mx-4 my-6 md:my-0">
+          <a href="/" class="text-xl hover:text-[#2491EB] duration-500">Home</a>
+        </li>
+        <li class="mx-4 my-6 md:my-0">
+          <a href="/projects" class="text-xl hover:text-[#2491EB] duration-500"
+            >Projects</a
+          >
+        </li>
+        <button
+          class="bg-[#2491EB] text-white font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-[#2491ebd4] rounded"
+        >
+          <a href="/login">Login</a>
+        </button>
+        <h2 class=""></h2>
+      </ul>
+</nav>
